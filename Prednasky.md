@@ -11,7 +11,7 @@ Facebook, Instagram, Netflix, WhatsApp, Dropbox ...
 * [ ] Visual Studio Code (<https://code.visualstudio.com/>)
 * [ ] Node.js + NPM (<https://nodejs.org/en/download/>)
 * [ ] Chrome + React developer tools
-* [ ] [React boilerplate](#Aktivita-1-1)
+* [ ] React boilerplate: Aktivita 1-1
 
 ## Prednasky, materialy, kod, ulohy, riesenia
 
