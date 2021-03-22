@@ -97,4 +97,44 @@ const element = (
 );
 ```
 
+## Events, inputs and forms
+
+- vytvorit novu react aplikaciu a vymazat nepotrebne subory
+- pozor aby sme boli v spravnom foldri
+`npx create-react-app interaction-app`
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+let count = 0;
+const element = (
+  <div>
+    <h1>INTERACTION APP</h1>
+    <h2>Count: {count}</h2>
+    <button id="plus-button" class="button">+1</button>
+  </div>
+);
+
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+```
+
+Ked pridame `button` a vyrenderujeme, v konzole dostaneme error `Unknown DOM property class`. Tu vidime jeden z rozdielov JSX oproti HTML.
+Niektore properties boli premenovane - `class` je rezervovany keyword v JavaScripte.
+
+Podobne onclick v HTML 
+```
+<button onclick="activateLasers()">
+  Activate Lasers
+</button>
+```
+je v Reacte 
+```
+<button onClick={activateLasers}>  Activate Lasers
+</button>
+```
+
 
