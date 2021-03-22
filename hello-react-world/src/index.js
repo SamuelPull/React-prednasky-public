@@ -28,7 +28,7 @@ const predpovedPocasia = (
 const prestavka = (<h1>Prestavka do 11:30</h1>)
 
 ReactDOM.render(
-  prestavka,
+  predpovedPocasia,
   document.getElementById('root')
 );
 

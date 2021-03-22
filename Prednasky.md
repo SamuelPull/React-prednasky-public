@@ -1,5 +1,7 @@
 # REACT
 
+## PONDELOK
+
 ## React intro
 
 JavaScript kniznica na vytvaranie user interfacov (UIs).
@@ -25,17 +27,18 @@ Budeme postupne pridavat do tohoto public repa.
 2. `cd hello-react-world`
 3. `yarn start`
 
-
 ## JSX
 
 JSX je syntakticke rozsirenie JavaScriptu, ktore sa podoba na HTML.
 
 Vytvorte JSX element s nazvom 'element',
 ktory obsahuje nasledovne prvky:
- - h1 -> Name: meno
- - p -> Town: mesto
- - p -> Animal: oblubene zviera
- - p -> Food: oblubene jedlo
+
+* h1 -> Name: meno
+* p -> Town: mesto
+* p -> Animal: oblubene zviera
+* p -> Food: oblubene jedlo
+
 ```
 const element = (
   <div>
@@ -56,14 +59,15 @@ const name = 'Josh Perez';
 const element = <h1>Hello, {name}</h1>;
 ```
 
-
 V "kuceravych" zatvorkach mozeme volat aj funkcie:
+
 ```
 const name = 'Josh Perez';
 const element = <h1>Hello, {name.toUpperCase()}</h1>;
 ```
 
 V `{ }` zatvorkach moze byt pouzity lubovolny platny JavaScript vyraz, napr. funkcia:
+
 ```
 function makeGreeting(name) {
   return "Hello, " + name + "!"
@@ -82,6 +86,7 @@ ReactDOM.render(
 ```
 
 V jednom JSX prvku mozeme pouzit viacero vyrazov:
+
 ```
 const name = "Samuel";
 const town = "Bratislava"
@@ -97,10 +102,109 @@ const element = (
 );
 ```
 
+Ak mame tieto udaje v jednom objekte, napriklad ked dostaneme tieto udaje z databazy, mozeme pouzit `.` operator.
+
+```
+const user = {
+  name = "Samuel",
+  const town = "Bratislava",
+  const animal = "komar",
+  const food = "cheesecake"
+};
+const element = (
+  <div>
+    <h2>Name: {user.name}</h2>
+    <p>Town: {user.town}</p>
+    <p>Animal: {user.animal}</p>
+    <p>food: hamburger</p>
+  </div>
+);
+```
+
+## Conditional rendering
+
+Bez podmieneho renderovania a podmienok vseobecne sa v developemnte daleko nedostaneme.
+if toto, then hento, if not, do tamto.
+Priklady: ak je user lognuty, ukaz log out button. ak nie je, ukaz log in button.
+
+```
+const futureWeather = {
+  location: "Trencin",
+  humidity: "60%"
+  // temperature: 20
+}
+
+const predpovedPocasia = (
+  <div>
+    <h1>Weather in {futureWeather.location}:</h1>
+    <p>Humidity: {futureWeather.humidity}</p>
+    <p>Temperature: {futureWeather.temperature}</p>
+  </div>
+);
+
+const getTemperature1 = (weather) => {
+  return weather.temperature;
+}
+
+<p>Temperature: {getTemperature(weather)}</p>
+
+
+const getTemperature2 = (weather) => {
+  if (weather.temperature) {
+    return temperature;
+  } 
+  return 'unknown';
+}
+
+...
+
+const getTemperature3 = (weather) => {
+  if (weather.temperature) {
+    return <p>Temperature: {weather.temperature}</p>
+  } 
+  return undefined;
+}
+
+const predpovedPocasia3 = (
+  <div>
+    <h1>Weather in {futureWeather.location}:</h1>
+    <p>Humidity: {futureWeather.humidity}</p>
+    {getTemperature(futureWeather)}
+  </div>
+);
+```
+
+The conditional (ternary) operator is the only JavaScript operator that takes three operands: a condition followed by a question mark (?), then an expression to execute if the condition is truthy followed by a colon (:), and finally the expression to execute if the condition is falsy. This operator is frequently used as a shortcut for the if statement.
+
+Otvor konzolu v prehliadaci:
+
+`true ? "jablko" : undefined`
+`false ? "jablko" : undefined`
+
+`true && "jablko"`
+`false && "jablko"`
+
+```
+{futureWeather.temperature > 25 && "😅"}
+```
+
+Moze nastat situacia ked nemame objekt `futureWeather`:
+
+```
+{(futureWeather && futureWeather.temperature > 25) && "😅"}
+```
+
+Vo vseobecnosti pouzivame v Reacte `&&` ked pri splneni podmienky chceme nieco ukazat a pri nesplneni nic,
+ternary `a ? b : c` ked chceme ukazat nieco ine pri splneni a nieco ine pri nesplneni podmienky.
+
+```
+{futureWeather.temperature > 25 ? "😅" : "🥶"}
+```
+
 ## Events, inputs and forms
 
-- vytvorit novu react aplikaciu a vymazat nepotrebne subory
-- pozor aby sme boli v spravnom foldri
+* vytvorit novu react aplikaciu a vymazat nepotrebne subory
+* pozor aby sme boli v spravnom foldri
 `npx create-react-app interaction-app`
 
 ```
@@ -125,19 +229,23 @@ ReactDOM.render(
 Ked pridame `button` a vyrenderujeme, v konzole dostaneme error `Unknown DOM property class`. Tu vidime jeden z rozdielov JSX oproti HTML.
 Niektore properties boli premenovane - `class` je rezervovany keyword v JavaScripte.
 
-Podobne onclick v HTML 
+Podobne onclick v HTML
+
 ```
 <button onclick="activateLasers()">
   Activate Lasers
 </button>
 ```
-je v Reacte 
+
+je v Reacte
+
 ```
 <button onClick={activateLasers}>  Activate Lasers
 </button>
 ```
 
-### Uloha: 
+### Uloha
+
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -185,3 +293,26 @@ ReactDOM.render(
 renderApp();
 ```
 
+### Problem s databindingom
+
+Ak zmenime funkciu plusOne na
+
+```
+const plusOne = () => {
+  count++;
+  alert('plusOne:' + count)
+}
+```
+
+vidime, ze premenna count sa zvysuje, ale h2 Count stale ukazuje 0. Aplikacia bola vyrenderovana a neobnovuje sa.
+
+V elements paneli vidime prvky ktore pri renderovani blikaju.
+
+## UTOROK
+
+### Inputs and forms
+
+* Vytvorit novu aplikaciu
+  - - vytvorit novu react aplikaciu a vymazat nepotrebne subory
+* pozor aby sme boli v spravnom foldri
+* `npx create-react-app todo-list`

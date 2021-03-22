@@ -9,18 +9,14 @@ const plusOne = () => {
 }
 
 const minusOne = () => {
-  console.log('minusOne')
+  count--;
+  renderApp();
 }
 
 const resetToZero = () => {
-  console.log('reset')
+  count = 0;
+  renderApp();
 }
-
-// vo funkcii minusOne znizit count o 1
-// a zavolat renderApp
-
-// vo funkcii resetToZero zmenit count na 0
-// zavolat renderApp
 
 
 const renderApp = () => {
