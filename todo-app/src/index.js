@@ -1,6 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// funkcny react component
+// zaciatocne velke pismeno
+// const Header = () => {
+//   return <h1>Rambo III opat v kinach!!!</h1>
+// }
+
+// const Header = (props) => {
+//   return (
+//     <div>
+//     <h1>{props.nazov}</h1>
+//     <h2>{props.title}</h2>
+//    </div>
+//   )
+// }
+
+const Header = (props) => {
+  if (props.isVisible === true) {
+    return <h1>{props.title}</h1>
+  } else {
+    return null;
+  }
+}
+
+// prvy sposob
+// const Subtitle = (props) => {
+//   return props.subtitle ? <h2>{props.subtitle}</h2> : null;
+// }
+
+// druhy sposob
+const Subtitle = (props) => {
+  const subtitle = props.subtitle;
+  return subtitle ? <h2>{subtitle}</h2> : null;
+}
+
+// ULOHA
+// Vytvorit komponent s nazvom Todo
+// dostava argument props
+// ktory dostane napr. todo="naucit sa React"
+// v definicii komponentu k premennej pristupujeme pomocou props.todo
+// a vrati <div>{todo}</div>
+
 const info = {
   title: 'TO DO list',
   subtitle: 'Co mozes urobit zajtra, nerob dnes!',
@@ -26,8 +67,8 @@ const removeAllClick = () => {
 const renderApp = () => {
   const app = (
     <div>
-      <h1>{info.title}</h1>
-      {info.subtitle && <h2>{info.subtitle}</h2>}
+      <Header title={info.title} isVisible={true}></Header>
+      <Subtitle subtitle={info.subtitle} ></Subtitle>
       <p>{(info.todos.length > 0) ? 
       'Here is your todo list' : 
       'Nothing to do'}</p>
