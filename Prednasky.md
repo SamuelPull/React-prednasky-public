@@ -313,7 +313,7 @@ V elements paneli vidime prvky ktore pri renderovani blikaju.
 ### Inputs and forms
 
 * Vytvorit novu aplikaciu
-  - - vytvorit novu react aplikaciu a vymazat nepotrebne subory
+    * - vytvorit novu react aplikaciu a vymazat nepotrebne subory
 * pozor aby sme boli v spravnom foldri
 * `npx create-react-app todo-app`
 
@@ -346,6 +346,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
 ### full page refresh
 
 ```
@@ -388,7 +389,14 @@ ReactDOM.render(
 );
 ```
 
+`e` je event. Eventy su "veci" ktore sa deju HTML prvkom. Pomocou JavaScriptu vieme na taketo eventy reagovat.
+Eventy spusta prehliadac alebo pouzivatel.
+Napriklad: HTML stranka dokoncila nacitavanie, HTML input field bol zmeneny, HTML button bol kliknuty.
+
+V nasom pripade pouzivatel klikne na button a tym spusti event, ku ktoremu prisupujeme v handler funkcii `onFormSubmit` cez argument `e`.
+
 ### Uloha na renderovanie todo
+
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -440,6 +448,7 @@ ReactDOM.render(
 ```
 
 ### Riesenie
+
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -489,6 +498,7 @@ renderApp()
 ```
 
 ### Renderovanie pola
+
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -559,6 +569,7 @@ renderApp();
 ```
 
 ### Renderovane todos
+
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -619,6 +630,120 @@ renderApp();
 ```
 
 ## REACT komponenty
+
+* React pouziva "component based architecture"
+* Komplexne aplikacie su "rozbite" na jednotlive komponenty, ktore su samostatne jednoduche
+* Kazdy komponent zodpoveda za svoje JSX
+* Ako rozbit stranku do komponentov  
+* Priklad z praxe: open-source TruBudget
+
+* V Reacte existuju dva hlavne druhy komponentov: function a class components, k detailom neskor
+
+* Zmyslom Reactu nie je pisat aplikaciu ako HTML webstranku v JSX, ale v komponentoch ako stavebnicu
+  
+## Vytvaranie komponentov
+
+Zozaciatku budeme pouzivat hlavne funkcne React komponenty.
+
+```
+const Header = () => {
+  return <h1>Rambo III opat v kinach!</h1>
+}
+```
+
+Toto je function component, lebo je to funckia ktora vracia JSX. Nazov funkcie je nazvom komponentu. V Reacte sa nazov komponentu zacina vzdy velkym pismenom.
+Tymto menom je potom pouzity v JSX ineho komponentu, uzavrety v zobacikovych zatvorkach `<` `>`, podobne ako stare zname `<div>`, `<p>`, `<h1>` a dalsie HTML prvky.
+Takyto komponent mozeme povazovat za user-defined HTML prvok. Velke pismeno je dolezite! React ho pouziva na odlisenie medzi HTML prvkami a React komponentmi.
+
+Priklad pouzitia:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
+const header = () => {
+  return <h1>Rambo III opat v kinach!</h1>
+}
+
+const jsx = (
+  <div>
+    <h3>Fantasticka sprava</h3>
+    <!-- Tu je pouzity nas vlastny React komponent!    -->
+    <Header />
+  </div>
+);
+
+ReactDOM.render(
+  jsx,
+  document.getElementById('root')
+);
+```
+
+React je c00L, lebo komponenty su reusable. Mozeme ich pouzit viackrat na lubovolne miesto:
+
+```
+const jsx = (
+  <div>
+    <h3>Fantasticka sprava</h3>
+    <Header />
+    <Header />
+    <Header />
+    <Header />
+    <ul>
+      <li><Header /></li>
+      <li><Header /></li>
+    </ul>
+    <Header />   
+  </div>
+);
+```
+
+Pozor, vzdy musime mat jeden prvok, ktory ostatne uzatvara. V nasom pripade je to `div`.
+
+Vsetky `Header` komponenty ukazuju rovnaky nadpis. Co s tym?
+
+## Props
+
+Rovnako ako funkcie, funkcne React komponenty mozu dostavat argumenty. V svete Reaktu sa volaju `props` (properties).
+
+```
+const element = <Welcome name="Sara" />;
+
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+```
+
+V nasom priklade si vyskusame
+
+```
+<Header title="Jablkovy ocot"></Header>
+<Header title="Jablkovy kolac"></Header>
+...
+const Header = (props) => {
+  return <h1>{props.title}</h1>
+}
+```
+
+Vstupov do `props` moze byt viacero:
+
+```
+const Header = (props) => {
+  if (props.isVisible) {
+   return <h1>{props.title}</h1>
+  } else return '';
+}
+...
+<Header title="Jablkovy ocot" isVisible={false}></Header>
+```
+
+`false` v `isVisible={false}` je zabalene do curly braceov, lebo stale sa pohybujeme v JSX. `isVisible="false"` by bolo brane ako string._
+
+Z toho, ako pristupujeme k hodnotam `props.isVisible` a `props.title` vidime, ze `props` je objekt, a premenne, ku ktorym sa chceme dostat su properties toho objektu.
+
+Vstupy do props nemusia byt len stringy alebo booleany, moze to byt hocico.
 
 ```
 import React from 'react';
