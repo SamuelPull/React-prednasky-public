@@ -15,23 +15,13 @@ const onFormSubmit = (e) => {
     info.todos.push(todo);
     e.target.elements.newtodo.value = "";
     renderApp();
-    console.log(todo)
-    console.log(info.todos)
   }
 }
 
 const removeAllClick = () => {
   info.todos = []
   renderApp();
-  console.log(info.todos)
 }
-
-const things = ['a','b','c',92]
-
-// V aplikacii zobrazovat prvky info.todos
-// nezbudnite na kucerave zatvorky
-// error si nevsimajte
-
 
 const renderApp = () => {
   const app = (
@@ -44,8 +34,8 @@ const renderApp = () => {
       <p>{info.todos.length}</p>
       <div>
         {
-          things.map(x => {
-            return (<p>{x}</p>)
+          info.todos.map(x => {
+            return (<p key={x}>{x}</p>)
           })
         }
       </div>
