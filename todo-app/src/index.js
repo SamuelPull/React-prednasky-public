@@ -20,6 +20,19 @@ const onFormSubmit = (e) => {
   }
 }
 
+const removeAllClick = () => {
+  info.todos = []
+  renderApp();
+  console.log(info.todos)
+}
+
+const things = ['a','b','c',92]
+
+// V aplikacii zobrazovat prvky info.todos
+// nezbudnite na kucerave zatvorky
+// error si nevsimajte
+
+
 const renderApp = () => {
   const app = (
     <div>
@@ -29,10 +42,18 @@ const renderApp = () => {
       'Here is your todo list' : 
       'Nothing to do'}</p>
       <p>{info.todos.length}</p>
+      <div>
+        {
+          things.map(x => {
+            return (<p>{x}</p>)
+          })
+        }
+      </div>
       <form onSubmit={onFormSubmit}>
         <input type="text" name="newtodo" />
         <button>Add TODO</button>
       </form>
+      <button onClick={removeAllClick}>Remove All</button>
     </div>
   )
 
@@ -42,4 +63,4 @@ const renderApp = () => {
   );
 }
 
-renderApp()
+renderApp();
