@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Vypisat dlzku pola po pridani prvku, podobne ak v interaction-app
+// vyrenderovat aplikaciu
+// 1. Vytvorit renderovaciu funkciu
+// 2. Zavolat ju hned
+// 3. Zavolat ju po pridani todo
+
 const info = {
   title: 'TO DO list',
   subtitle: 'Co mozes urobit zajtra, nerob dnes!',
@@ -10,7 +16,14 @@ const info = {
 const onFormSubmit = (e) => {
   e.preventDefault(); // prevenet full page refresh
 
-  console.log("form submitted")
+  const todo = e.target.elements.newtodo.value;
+  if (todo) {
+    info.todos.push(todo);
+    e.target.elements.newtodo.value = "";
+
+    console.log(todo)
+    console.log(info.todos)
+  }
 }
 
 const app = (
@@ -20,12 +33,9 @@ const app = (
     <p>{(info.todos.length > 0) ? 
     'Here is your todo list' : 
     'Nothing to do'}</p>
-    <ol>
-      <li>Prva vec</li>
-      <li>Druha vec</li>
-    </ol>
+    <p>{info.todos.length}</p>
     <form onSubmit={onFormSubmit}>
-      <input type="text" name="new-todo" />
+      <input type="text" name="newtodo" />
       <button>Add TODO</button>
     </form>
   </div>
