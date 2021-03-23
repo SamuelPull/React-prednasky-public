@@ -315,4 +315,34 @@ V elements paneli vidime prvky ktore pri renderovani blikaju.
 * Vytvorit novu aplikaciu
   - - vytvorit novu react aplikaciu a vymazat nepotrebne subory
 * pozor aby sme boli v spravnom foldri
-* `npx create-react-app todo-list`
+* `npx create-react-app todo-app`
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const info = {
+  title: 'TO DO list',
+  subtitle: 'Co mozes urobit zajtra, nerob dnes!',
+  todos: ['Upiect pizzu', 'Ist do lekarne']
+}
+
+const app = (
+  <div>
+    <h1>{info.title}</h1>
+    {info.subtitle && <h2>{info.subtitle}</h2>}
+    <p>{(info.todos.length > 0) ? 
+    'Here is your todo list' : 
+    'Nothing to do'}</p>
+    <ol>
+      <li>Prva vec</li>
+      <li>Druha vec</li>
+    </ol>
+  </div>
+)
+
+ReactDOM.render(
+    app,
+  document.getElementById('root')
+);
+```

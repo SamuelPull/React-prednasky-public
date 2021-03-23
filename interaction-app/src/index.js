@@ -31,8 +31,12 @@ const element = (
   </div>
 )
 
+const prestavka = (<div>
+  <h1>Prestavka do 9:30</h1>
+</div>)
+
 ReactDOM.render(
-  element,
+  prestavka,
   document.getElementById('root')
 );
 }
