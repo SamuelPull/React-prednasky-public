@@ -7,6 +7,12 @@ const info = {
   todos: ['Upiect pizzu', 'Ist do lekarne']
 }
 
+const onFormSubmit = (e) => {
+  e.preventDefault(); // prevenet full page refresh
+
+  console.log("form submitted")
+}
+
 const app = (
   <div>
     <h1>{info.title}</h1>
@@ -18,6 +24,10 @@ const app = (
       <li>Prva vec</li>
       <li>Druha vec</li>
     </ol>
+    <form onSubmit={onFormSubmit}>
+      <input type="text" name="new-todo" />
+      <button>Add TODO</button>
+    </form>
   </div>
 )
 
