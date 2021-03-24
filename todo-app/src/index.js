@@ -1,21 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// funkcny react component
-// zaciatocne velke pismeno
-// const Header = () => {
-//   return <h1>Rambo III opat v kinach!!!</h1>
-// }
-
-// const Header = (props) => {
-//   return (
-//     <div>
-//     <h1>{props.nazov}</h1>
-//     <h2>{props.title}</h2>
-//    </div>
-//   )
-// }
-
 const Header = (props) => {
   if (props.isVisible === true) {
     return <h1>{props.title}</h1>
@@ -24,11 +9,6 @@ const Header = (props) => {
   }
 }
 
-// prvy sposob
-// const Subtitle = (props) => {
-//   return props.subtitle ? <h2>{props.subtitle}</h2> : null;
-// }
-
 // druhy sposob
 const Subtitle = (props) => {
   const subtitle = props.subtitle;
@@ -36,11 +16,17 @@ const Subtitle = (props) => {
 }
 
 // ULOHA
-// Vytvorit komponent s nazvom Todo
-// dostava argument props
-// ktory dostane napr. todo="naucit sa React"
-// v definicii komponentu k premennej pristupujeme pomocou props.todo
-// a vrati <div>{todo}</div>
+const TodoList = (props) => {
+  const todos = props.todos;
+  // 1. ak je dlzka todos 0, vratit <p> -> Nothing to do  
+  // 2. inak vratit <p> -> Here is your TODO list: 
+  // 3. vovnutri mapovanie todos pola na jednotlive Todo komponenty, ktore treba vytvorit:
+  // todos.map(prvok pola => { return ... })
+}
+
+const Todo = (props) => {
+  return <div>{props.todo}</div>
+}
 
 const info = {
   title: 'TO DO list',
@@ -64,15 +50,21 @@ const removeAllClick = () => {
   renderApp();
 }
 
+const data = ['papier', 'kava','noznice'];
+
 const renderApp = () => {
   const app = (
     <div>
       <Header title={info.title} isVisible={true}></Header>
-      <Subtitle subtitle={info.subtitle} ></Subtitle>
+      <Subtitle subtitle={info.subtitle} ></Subtitle>      
       <p>{(info.todos.length > 0) ? 
       'Here is your todo list' : 
       'Nothing to do'}</p>
       <p>{info.todos.length}</p>
+      {/* 
+          nahradit div s info.todos.map novym TodoList komponentom
+          <TodoList todos={info.todos} ...
+      */}
       <div>
         {
           info.todos.map(x => {
@@ -80,7 +72,7 @@ const renderApp = () => {
           })
         }
       </div>
-      <form onSubmit={onFormSubmit}>
+      <form onSubmit={onFormSubmit} >
         <input type="text" name="newtodo" />
         <button>Add TODO</button>
       </form>
