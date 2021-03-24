@@ -15,13 +15,20 @@ const Subtitle = (props) => {
   return subtitle ? <h2>{subtitle}</h2> : null;
 }
 
-// ULOHA
+
 const TodoList = (props) => {
   const todos = props.todos;
-  // 1. ak je dlzka todos 0, vratit <p> -> Nothing to do  
-  // 2. inak vratit <p> -> Here is your TODO list: 
-  // 3. vovnutri mapovanie todos pola na jednotlive Todo komponenty, ktore treba vytvorit:
-  // todos.map(prvok pola => { return ... })
+  if (todos.length === 0) {
+    return <p>Nothing to do</p>
+  } else {
+    return (
+      <div>
+        <p>Here is your TODO list</p>
+        {todos.map((todo) => {
+          return <Todo todo={todo} key={todo}/>
+        })}
+     </div>);
+  }
 }
 
 const Todo = (props) => {
@@ -50,28 +57,13 @@ const removeAllClick = () => {
   renderApp();
 }
 
-const data = ['papier', 'kava','noznice'];
-
 const renderApp = () => {
   const app = (
     <div>
       <Header title={info.title} isVisible={true}></Header>
       <Subtitle subtitle={info.subtitle} ></Subtitle>      
-      <p>{(info.todos.length > 0) ? 
-      'Here is your todo list' : 
-      'Nothing to do'}</p>
       <p>{info.todos.length}</p>
-      {/* 
-          nahradit div s info.todos.map novym TodoList komponentom
-          <TodoList todos={info.todos} ...
-      */}
-      <div>
-        {
-          info.todos.map(x => {
-            return (<p key={x}>{x}</p>)
-          })
-        }
-      </div>
+      <TodoList todos={info.todos}/>      
       <form onSubmit={onFormSubmit} >
         <input type="text" name="newtodo" />
         <button>Add TODO</button>
