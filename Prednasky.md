@@ -1206,8 +1206,10 @@ renderApp();
 ```
 
 - pouzitie React komponentu:
+```
     <MojKomponent>
     <TodoList>
+```
 
 ## State
 
