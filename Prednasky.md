@@ -872,7 +872,7 @@ const TodoList = (props) => {
   const todos = props.todos;
   // 1. ak je dlzka todos 0, vratit <p> -> Nothing to do  
   // 2. inak vratit <p> -> Here is your TODO list: 
-  // 3. vovnutri mapovanie todos pola na jednotlive Todo komponenty, ktore treba vytvorit:
+  // 3. potom <div> </div>, vovnutri ktoreho mapovanie todos pola na jednotlive Todo komponenty:
   // todos.map(prvok pola => { return ... })
 }
 
