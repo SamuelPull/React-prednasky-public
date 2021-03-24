@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const Header = (props) => {
@@ -35,35 +35,34 @@ const Todo = (props) => {
   return <div>{props.todo}</div>
 }
 
-const info = {
-  title: 'Pokracujeme 11:05',
-  subtitle: 'Co mozes urobit zajtra, nerob dnes!',
-  todos: ['Upiect pizzu', 'Ist do lekarne']
-}
 
-const onFormSubmit = (e) => {
-  e.preventDefault(); // prevenet full page refresh
+const App = () => {
 
-  const todo = e.target.elements.newtodo.value;
-  if (todo) {
-    info.todos.push(todo);
-    e.target.elements.newtodo.value = "";
-    renderApp();
+  const [todos, setTodos] = useState([])
+  
+  const onFormSubmit = (e) => {
+    e.preventDefault(); // prevent full page refresh
+  
+    const todo = e.target.elements.newtodo.value;
+    if (todo) {
+      setTodos([...todos, todo])
+      e.target.elements.newtodo.value = "";
+    }
   }
-}
+  
+  const removeAllClick = () => {
+    // ULOHA
+    // zfunkcit Remove All button
+    // vynulovat TODO list pomocou setTodos
+    // ako argument do funkcie vlozit prazdny array []
+  }
 
-const removeAllClick = () => {
-  info.todos = []
-  renderApp();
-}
-
-const renderApp = () => {
-  const app = (
+  return  (
     <div>
-      <Header title={info.title} isVisible={true}></Header>
-      <Subtitle subtitle={info.subtitle} ></Subtitle>      
-      <p>{info.todos.length}</p>
-      <TodoList todos={info.todos}/>      
+      <Header title="TODO LIST" isVisible={true}></Header>
+      <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
+      <p>{todos.length}</p>
+      <TodoList todos={todos}/>      
       <form onSubmit={onFormSubmit} >
         <input type="text" name="newtodo" />
         <button>Add TODO</button>
@@ -71,11 +70,10 @@ const renderApp = () => {
       <button onClick={removeAllClick}>Remove All</button>
     </div>
   )
-
-  ReactDOM.render(
-      app,
-    document.getElementById('root')
-  );
 }
 
-renderApp();
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
+
