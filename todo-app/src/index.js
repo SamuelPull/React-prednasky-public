@@ -36,7 +36,7 @@ const Todo = (props) => {
 }
 
 const info = {
-  title: 'TO DO list',
+  title: 'Pokracujeme 11:05',
   subtitle: 'Co mozes urobit zajtra, nerob dnes!',
   todos: ['Upiect pizzu', 'Ist do lekarne']
 }

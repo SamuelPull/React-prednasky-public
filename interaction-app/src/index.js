@@ -1,44 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-let count = 0;
+// button pre -1 
+// button pre vynulovanie
+// inline funkcie alebo samostatne 
 
-const plusOne = () => {
-  count++;
-  renderApp();
-}
+  
+const App = () => {
 
-const minusOne = () => {
-  count--;
-  renderApp();
-}
+  const [count, setCount] = useState(0)
 
-const resetToZero = () => {
-  count = 0;
-  renderApp();
-}
+  // priklad funkcie
+  // const plusOne = () => {
+  //   setCount(count+1)
+  // }
 
-
-const renderApp = () => {
-const element = (
+  return (
   <div>
     <h1>INTERACTION APP</h1>
     <h2>Count: {count}</h2>
     <button id="plus-button" className="button" 
-     onClick={plusOne}>+1</button>
-    <button onClick={minusOne}>-1</button> 
-    <button onClick={resetToZero}>reset</button>   
+     onClick={() => setCount(count+1)}>+1</button>  
   </div>
-)
-
-const prestavka = (<div>
-  <h1>Prestavka do 9:30</h1>
-</div>)
+  )
+ }
 
 ReactDOM.render(
-  prestavka,
+  <App />,
   document.getElementById('root')
 );
-}
-
-renderApp();

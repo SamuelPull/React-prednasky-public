@@ -1128,3 +1128,140 @@ const renderApp = () => {
 
 renderApp();
 ```
+
+## Pouzivanie zatvoriek v Reacte
+
+### kedy pouzivame ake zatvorky??
+ 
+#### klasicke okruhle zatvorky () pouzivame v tychto pripadoch:
+ 
+ - v podmienkach
+  ```
+    if ( a > 5 ) { ... }
+    (a > 5) ? true : false
+ ```
+ - v JSX za return ktore obsahuje html elementy alebo React komponenty
+  ```
+    return (<div>ahoj</div>)
+    return (<TodoList todos={} />)
+ ```
+ 
+ - obaluju argumenty funkcie (ale tiez nemusia ak je len 1 argument)```
+    (meno, priezivsko) => { ...telo funkcie... }
+    (meno) => {}
+    ```
+    `meno => {}` ... toto je ten pripad ze nemusi byt zatvorka ak je jeden argument
+ 
+ - volanie funkcie (napr. pri funkcii map alebo renderApp)
+  ```
+    [1,2,3].map( () => {} )
+    renderApp()
+```
+#### zlozene zatvorky { } pouzivame v tychto pripadoch:
+ 
+ - primarne to sluzi na oddelenie nejakeho bloku kodu napriklad telo funkcie
+    () => { ..telo funkcie, tu moze byt hocijaky kod.. }
+
+ - definicia objektu 
+  ```
+    const obj = {
+      meno: 'Jozko',
+      priezvisko: 'Mrkva'
+    }
+```
+ - v if-else na oddelenie kodu v jednodlivych vetvach (true a false)
+    if (podmienka) { ...kod ak truthy... } else { ...kod ak falsy... }
+
+ - pri zadavani hodnoty do props (ak je hodnota text, staci pouzit uvodzovky)
+  ```
+    <MojKomponent meno={info.meno} priezvisko={info.priezvisko} />
+    <form onSubmit={..nejaka funkcia...} >
+    <div key={id} />
+```
+
+ - vypisanie hodnoty alebo vykonanie a nasledne vypisanie hodnoty (v jsx)
+  ```
+    <div>{ myName }<div> // toto vypise hodnotu ktora je v const myName. ak const myName = 'Jozko', tak vypise Jozko
+    <div>{ 1 + 1 }<div> // toto vypise 2
+    <div>{ 'abc' + ' ' + 'def' }</div> // toto vypise abc def (s medzerou)
+```
+
+#### zatvorky [ ] pouzivame v tychto pripadoch:
+
+- definicia pola:
+```
+    const pole = [ 'samo', 'brano', 'peto'];
+```
+
+- vyber jedneho prvku pola:
+    pole[0] // toto vyberie prvok na indexe 0, ma hodnotu 'samo'
+
+#### tieto zobacikove zatvorky < > pouzivame v tychto pripadoch:
+
+- pouzitie html elementu:
+```
+    <div>
+    <h1>
+    <p>
+```
+
+- pouzitie React komponentu:
+    <MojKomponent>
+    <TodoList>
+
+## State
+
+Momentalne bez manualneho renderu, volania `renderApp()`, nefunguje buttony v aplikacii. Ked si pridame `console.log` do tela funkcii, ktore su volane po kliknuti na tlacitko, vidime, zepracuju spravne, ale v aplikacii nie su viditelne ziadne zmeny. Stav komponentov sa nemeni. State v React componentoch je v podstate spojenie pamati a pozornosti. Komponent udrziava neaky stav, a zaroven, ked sa stav zmeni, komponent sa vyrenderuje nanovo. 
+
+Pre nazornu ilustraciu pouzitia state sa vratme k starsej aplikacii `interaction-app` (`pocitadlo`).
+Volali sme render po kazdej zmene, ale konecne je na case, aby React zacal renderovat tie komponenty, co treba a vtedy, ked treba. 
+
+V Reacte existuje viac sposobov pouzitia state, prvy ktory si ukazeme sa vola `useState hook`. Prve, co musime je importovat v subore
+```
+import React, { useState } from 'react';
+```
+
+Sposob pouzitia je vzdy 
+```
+const [x, setX] = useState(initialValueForX)
+```
+
+kde `useState` je "hook" ktory nastavuje stav. Dostava neaky argument `initialValueForX`, ktory nastavuje pociatocny stav komponentu. Vracia pole, v ktorom `x` je stav, `setX` je funkcia, ktora nastavuje stav.
+
+Pociatocna hodnota moze byt cokolvek, napr. `useState(0)`, `useState({})`, `useState([])`, `useState("ponozka")`, `useState()`, `useState(undefined)`, ...
+
+### interaction-app nanovo
+
+```
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+// button pre -1 
+// button pre vynulovanie
+// inline funkcie alebo samostatne 
+
+  
+const App = () => {
+
+  const [count, setCount] = useState(0)
+
+  // priklad funkcie
+  // const plusOne = () => {
+  //   setCount(count+1)
+  // }
+
+  return (
+  <div>
+    <h1>INTERACTION APP</h1>
+    <h2>Count: {count}</h2>
+    <button id="plus-button" className="button" 
+     onClick={() => setCount(count+1)}>+1</button>  
+  </div>
+  )
+ }
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+```
