@@ -1362,3 +1362,23 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+
+### Spread operator
+
+V `setTodos([...todos, todo])` su tri bodky. Volaju sa `spread operator`, a ulahcuju spajanie objektov a arrayov.
+Znamena "zober vsetky prvky z toho co nasleduje za tromi bodkami a 'rozprestri' ich.
+Najlahsie je to ukazat nazorne, pripadne vyskusat v konzole weboveho prehliadaca.
+```
+const arr = [1, 2, 3]
+[...arr, 4] 
+ -> [1, 2, 3, 4]
+```
+```
+arr1 = ['a', 'b']
+arr2 = ['c', 'd']
+[...arr1, ...arr2] 
+-> ['a', 'b', 'c', 'd']
+```
+
+Pouzivame ho preto, lebo ked pridavame todo, chceme vytvorit nove pole, v ktorom budu vsetky existujuce to-do poznamky, aj nova.
+Predtym sme pouzili `info.todos.push`. Tymto sposobom by sme  nedosiahli zmenu stavu komponentu. Ak chceme aby sa pri zmene udajov nanovo zobrazil sam, musime pouzit na zmenu stavu `setState`, teda `setTodos`.
