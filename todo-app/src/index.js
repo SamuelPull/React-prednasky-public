@@ -25,31 +25,42 @@ const TodoList = (props) => {
       <div>
         <p>Here is your TODO list</p>
         {todos.map((todo) => {
-          return <Todo todo={todo} key={todo}/>
+          return <Todo todo={todo} key={todo.name}/>
         })}
      </div>);
   }
 }
 
 const Todo = (props) => {
-  return <div>{props.todo}</div>
+  console.log(props.todo)
+  return (
+  <div>
+    <h3>{props.todo.name}</h3>
+    <p>{props.todo.description}</p>
+  </div>)
 }
+
+// {
+//   id,
+//   name,
+//   description
+// }
 
 const TodoForm = (props) => {
 
+  const [name, setName] = useState('');
+
   const onFormSubmit = (e) => {
-    e.preventDefault(); // prevent full page refresh
-  
-    const todo = e.target.elements.newtodo.value;
-    if (todo) {
-      props.onAdd(todo)
-      e.target.elements.newtodo.value = "";
-    }
+    e.preventDefault(); // prevent full page refresh  
+      props.onAdd({name})
+      setName('')
   }
 
   return (
     <form onSubmit={onFormSubmit} >
-        <input type="text" name="newtodo" />
+        <input type="text" name="newtodo" value={name} 
+        onChange={(e) => setName(e.target.value)}/>
+        <textarea value={''} onChange={() => {}}></textarea>
         <button>Add TODO</button>
     </form>
   )
