@@ -30,6 +30,7 @@ const TodoList = (props) => {
               <Todo todo={todo} />
               <button onClick={
                 () => props.onRemove(todo.name)}>x</button>
+              <button onClick={() => {}}>Hotovo!</button>
             </div>
           )
         })}
@@ -42,13 +43,15 @@ const Todo = (props) => {
   <div>
     <h3>{props.todo.name}</h3>
     <p>{props.todo.description}</p>
+    {props.todo.completed && <p>DONE</p>}
   </div>)
 }
 
 // {
 //   id,
 //   name,
-//   description
+//   description,
+//   completed: true/false
 // }
 
 const TodoForm = (props) => {
@@ -87,6 +90,10 @@ const App = () => {
     const updatedTodos = todos.filter(prvokPola => { return prvokPola.name !== name }) 
     setTodos(updatedTodos);
   }
+
+  const completeTodo = (name) => {
+    console.log('completeTodo called with ' + name)
+  }
   
   const removeAllClick = () => {
     setTodos([])
@@ -97,7 +104,7 @@ const App = () => {
       <Header title="TODO LIST" isVisible={true}></Header>
       <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
       <p>{todos.length}</p>
-      <TodoList todos={todos} onRemove={removeTodo}/>      
+      <TodoList todos={todos} onRemove={removeTodo} />      
       <TodoForm onAdd={addTodo}></TodoForm>
       <button onClick={removeAllClick}>Remove All</button>
     </div>
