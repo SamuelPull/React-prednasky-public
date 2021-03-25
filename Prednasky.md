@@ -1809,6 +1809,36 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+Poznamka: Tym, ze nepouzivame unikatny `key` pre itemy v `TodoList`, moze dojst k roznym problemom, ak budeme mat dve TODO s rovnakym nazvom.
+To mozeme vyriesit docasne napriklad tak, ze budeme pouzivat generator unikatnych keys. 
+```
+let ID = 1;
+const getId = () => ID++;
+```
+Rovnako, ak mame dve TODO s rovnakym `name`, a vymazavame podla `name`, prideme o obidve. Lepsie je vymazavat podla unikatnej property, napriklad `id`.
+
+
+V komponente `App` vo funkcii `addTodo`, ked vytvarame novy objekt TODO, nenastavujeme stav, ci je todo spravene alebo nie. Kedze nema zmysel vytvarat todo, ktore je done, pridame property `completed` s hodnotou `false`: 
+
+```
+    const newTodo = {
+      name: todo.name,
+      description: todo.description,
+      completed: false
+    }
+```
+
+Komponent Todo:
+```
+const Todo = (props) => {
+  return (
+    <div>
+      <h3>{props.todo.name}</h3>
+      <p>{props.todo.description}</p>
+      {props.todo.completed && <p>DONE</p>}
+    </div>);
+}
+```
 
 Este nam chyba oznacovanie, co z nasho listu povinnosti mame za sebou. To bude vasa dalsia uloha.
 ### Aktivita - Implementacia callbacku
