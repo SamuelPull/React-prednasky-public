@@ -49,18 +49,21 @@ const Todo = (props) => {
 const TodoForm = (props) => {
 
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('')
 
   const onFormSubmit = (e) => {
     e.preventDefault(); // prevent full page refresh  
-      props.onAdd({name})
+      props.onAdd({name, description})
       setName('')
+      setDescription('')
   }
 
   return (
     <form onSubmit={onFormSubmit} >
-        <input type="text" name="newtodo" value={name} 
+        <input type="text" value={name} 
         onChange={(e) => setName(e.target.value)}/>
-        <textarea value={''} onChange={() => {}}></textarea>
+        <textarea value={description} 
+        onChange={(e) => setDescription(e.target.value)}></textarea>
         <button>Add TODO</button>
     </form>
   )
@@ -71,8 +74,7 @@ const App = () => {
 
   const [todos, setTodos] = useState([])
   
-  const addTodo = (todo) => {
-    console.log('addTodo called')    
+  const addTodo = (todo) => {   
     setTodos([...todos, todo]);
   }
   

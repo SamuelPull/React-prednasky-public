@@ -1481,6 +1481,14 @@ ReactDOM.render(
 
 ### Pomaly rozsirujeme TODOS z pola stringov na pole objektov
 
+V HTML formularoch, prvky formulara ako `<input>`,`<textare>` udrziavaju svoj vlastny stav a updatuju sa na zaklade vstupu pouzivatela.
+
+V Reacte je stav drzany v stavovych premennych, a meni sa cez `setState` (`setTodos`, `setName`,...)
+
+(https://reactjs.org/docs/forms.html)
+
+
+
 ```
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -1581,4 +1589,109 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+```
+
+### Spojenie HTML formulara a Reactu
+
+```
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const Header = (props) => {
+  if (props.isVisible === true) {
+    return <h1>{props.title}</h1>
+  } else {
+    return null;
+  }
+}
+
+// druhy sposob
+const Subtitle = (props) => {
+  const subtitle = props.subtitle;
+  return subtitle ? <h2>{subtitle}</h2> : null;
+}
+
+
+const TodoList = (props) => {
+  const todos = props.todos;
+  if (todos.length === 0) {
+    return <p>Nothing to do</p>
+  } else {
+    return (
+      <div>
+        <p>Here is your TODO list</p>
+        {todos.map((todo) => {
+          return <Todo todo={todo} key={todo.name}/>
+        })}
+     </div>);
+  }
+}
+
+const Todo = (props) => {
+  console.log(props.todo)
+  return (
+  <div>
+    <h3>{props.todo.name}</h3>
+    <p>{props.todo.description}</p>
+  </div>)
+}
+
+// {
+//   id,
+//   name,
+//   description
+// }
+
+const TodoForm = (props) => {
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('')
+
+  const onFormSubmit = (e) => {
+    e.preventDefault(); // prevent full page refresh  
+      props.onAdd({name, description})
+      setName('')
+      setDescription('')
+  }
+
+  return (
+    <form onSubmit={onFormSubmit} >
+        <input type="text" value={name} 
+        onChange={(e) => setName(e.target.value)}/>
+        <textarea value={description} 
+        onChange={(e) => setDescription(e.target.value)}></textarea>
+        <button>Add TODO</button>
+    </form>
+  )
+}
+
+
+const App = () => {
+
+  const [todos, setTodos] = useState([])
+  
+  const addTodo = (todo) => {   
+    setTodos([...todos, todo]);
+  }
+  
+  const removeAllClick = () => {
+    setTodos([])
+  }
+
+  return  (
+    <div>
+      <Header title="TODO LIST" isVisible={true}></Header>
+      <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
+      <p>{todos.length}</p>
+      <TodoList todos={todos}/>      
+      <TodoForm onAdd={addTodo}></TodoForm>
+      <button onClick={removeAllClick}>Remove All</button>
+    </div>
+  )
+}
+
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
 ```
