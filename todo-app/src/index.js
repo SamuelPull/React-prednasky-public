@@ -30,7 +30,8 @@ const TodoList = (props) => {
               <Todo todo={todo} />
               <button onClick={
                 () => props.onRemove(todo.name)}>x</button>
-              <button onClick={() => {}}>Hotovo!</button>
+              {!todo.completed &&
+              <button onClick={() => { return props.onComplete(todo.name)}}>Hotovo!</button>}
             </div>
           )
         })}
@@ -92,7 +93,11 @@ const App = () => {
   }
 
   const completeTodo = (name) => {
-    console.log('completeTodo called with ' + name)
+    setTodos(todos.map((t) => {
+      if (t.name === name) { 
+        return {...t, completed: true};
+      } else return t;
+    }))
   }
   
   const removeAllClick = () => {
@@ -104,7 +109,7 @@ const App = () => {
       <Header title="TODO LIST" isVisible={true}></Header>
       <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
       <p>{todos.length}</p>
-      <TodoList todos={todos} onRemove={removeTodo} />      
+      <TodoList todos={todos} onRemove={removeTodo} onComplete={completeTodo}/>      
       <TodoForm onAdd={addTodo}></TodoForm>
       <button onClick={removeAllClick}>Remove All</button>
     </div>
