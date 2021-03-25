@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios'
 
 const Header = (props) => {
   if (props.isVisible === true) {
@@ -28,10 +29,8 @@ const TodoList = (props) => {
           return (
             <div key={todo.name}>
               <Todo todo={todo} />
-              <button onClick={
-                () => props.onRemove(todo.name)}>x</button>
-              {!todo.completed &&
-              <button onClick={() => { return props.onComplete(todo.name)}}>Hotovo!</button>}
+              <button onClick={() => props.onRemove(todo.name)}>x</button>
+              {!todo.completed && <button onClick={() => { return props.onComplete(todo.name)}}>Hotovo!</button>}
             </div>
           )
         })}
@@ -83,8 +82,14 @@ const App = () => {
 
   const [todos, setTodos] = useState([])
   
-  const addTodo = (todo) => {   
-    setTodos([...todos, todo]);
+  const addTodo = async (todo) => {   
+    // setTodos([...todos, todo]);
+    const newTodo ={
+      name: todo.name,
+      description: todo.description,
+      completed: false
+    }
+    await axios.post('http://localhost:3001/todos', newTodo)
   }
 
   const removeTodo = (name) => {
@@ -108,7 +113,6 @@ const App = () => {
     <div>
       <Header title="TODO LIST" isVisible={true}></Header>
       <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
-      <p>{todos.length}</p>
       <TodoList todos={todos} onRemove={removeTodo} onComplete={completeTodo}/>      
       <TodoForm onAdd={addTodo}></TodoForm>
       <button onClick={removeAllClick}>Remove All</button>

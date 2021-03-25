@@ -1483,11 +1483,14 @@ ReactDOM.render(
 
 V HTML formularoch, prvky formulara ako `<input>`,`<textare>` udrziavaju svoj vlastny stav a updatuju sa na zaklade vstupu pouzivatela.
 
-V Reacte je stav drzany v stavovych premennych, a meni sa cez `setState` (`setTodos`, `setName`,...)
+V Reacte je stav drzany v stavovych premennych, a meni sa cez `setState` (`setTodos`, `setName`,...). 
 
-(https://reactjs.org/docs/forms.html)
+Ked kombinujeme HTML a React, chceme, aby nasa React aplikacia bola "single source of truth". Pridanim `value` a `onChange` atributov, a zapojenim spravnych funkcii a hodnot dosiahneme to, ze React bude html <input> a <textarea> ovladat.
 
+Tym ze do komponentu pridame useState (`const [name, setName] = useState('');`),
+atribut `value={name}` ma vzdy hodnotu stavu, a zaroven sa stav `name` updatuje po kazdom stlaceni klavesnice tym, ze  zapojime do atributu onChange funkciu na zmenu stavu: `onChange={(e) => setName(e.target.value)}`.
 
+Rovnako postupujeme pri <textarea>, len stavova premenna a funkcia na jej zmenu sa volaju inak.
 
 ```
 import React, { useState } from 'react';
@@ -2105,3 +2108,38 @@ ReactDOM.render(
 );
 ```
 
+## Axios, API
+
+Uchovavanie vsetkych udajov v pamati stranky nie je dobre riesenie, pretoze pri refreshi prideme o vsetky data. V praxi sa data ktore potrebujeme mat urcitu dobu k dispozicii ukladaju, kratkodobo do local storage, dlhodobejsie na server. 
+
+Axios je kniznica na HTTP requesty.
+V adresari, odkial spustame todo aplikaciu spustime prikaz
+`yarn add axios` alebo `npm i axios`.
+
+V index.js potrebujeme kniznicu importovat:
+```
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios'
+```
+
+Budeme potrebovat aj server. K dispozicii je na https://github.com/SamuelPull/React-prednasky-public . Potrebujete ho spustit o seba, na localhost.
+
+Prva moznost je nakopirovat subory rucne:
+1. Vytvorit priecinok server
+2. do priecinku server nakopirovat subor `package.json`
+3. v priecinku server vytvorit priecinok src
+4. do priecinku src nakopirovat subory `database.json`, `handler-filesystem.js`, `index.js`
+5. v priecinku server spustit prikaz `npm i` aby sa nainstalovali kniznice. Toto moze istu dobu trvat.
+6. server spustime prikazom `npm run dev`
+7. skontrolujeme otvorenim `http://localhost:3001/` v browseri, server by nas mal priatelsky privitat
+
+Druha moznost:
+1. v nejakom priecinku mimo nasich projektov spustit prikaz `git clone https://github.com/SamuelPull/React-prednasky-public.git`
+2. Nakopiruje sa vam obsah repozitara
+3. `cd React-prednasky-public`
+4. `cd server`
+5. `npm i`
+6. Prikazom `npm run dev` v priecinku server ho spustite
+7. skontrolujeme otvorenim `http://localhost:3001/` v browseri, server by nas mal priatelsky privitat
+   
