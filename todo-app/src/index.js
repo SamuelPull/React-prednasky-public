@@ -35,26 +35,38 @@ const Todo = (props) => {
   return <div>{props.todo}</div>
 }
 
+const TodoForm = (props) => {
 
-const App = () => {
-
-  const [todos, setTodos] = useState([])
-  
   const onFormSubmit = (e) => {
     e.preventDefault(); // prevent full page refresh
   
     const todo = e.target.elements.newtodo.value;
     if (todo) {
-      setTodos([...todos, todo])
+      props.onAdd(todo)
       e.target.elements.newtodo.value = "";
     }
   }
+
+  return (
+    <form onSubmit={onFormSubmit} >
+        <input type="text" name="newtodo" />
+        <button>Add TODO</button>
+    </form>
+  )
+}
+
+
+const App = () => {
+
+  const [todos, setTodos] = useState([])
+  
+  const addTodo = (todo) => {
+    console.log('addTodo called')    
+    setTodos([...todos, todo]);
+  }
   
   const removeAllClick = () => {
-    // ULOHA
-    // zfunkcit Remove All button
-    // vynulovat TODO list pomocou setTodos
-    // ako argument do funkcie vlozit prazdny array []
+    setTodos([])
   }
 
   return  (
@@ -63,10 +75,7 @@ const App = () => {
       <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
       <p>{todos.length}</p>
       <TodoList todos={todos}/>      
-      <form onSubmit={onFormSubmit} >
-        <input type="text" name="newtodo" />
-        <button>Add TODO</button>
-      </form>
+      <TodoForm onAdd={addTodo}></TodoForm>
       <button onClick={removeAllClick}>Remove All</button>
     </div>
   )
