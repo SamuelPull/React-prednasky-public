@@ -1809,3 +1809,22 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+
+Este nam chyba oznacovanie, co z nasho listu povinnosti mame za sebou. To bude vasa dalsia uloha.
+### Aktivita - Implementacia callbacku
+
+- V komponente `App`, v ktorom mame o.i. `removeTodo`, napisat funkciu `completeTodo`, ktora ma parameter `name` a do konzoly vypise, ze bola volana, a s akym argumentom.
+- v JSX, ktore `App` vracia, v casti  `<TodoList todos={todos} onRemove={removeTodo} />` doplnit prop `onComplete` a passnut don novu funkciu - callback
+- v komponente `TodoList`, kde najnovsie pribudol button na vymazavanie jednotlivych todo, pridat button, ktory po stlaceni zavola novu funkciu
+- Vysledok overite v konzole
+- BONUS: Po overeni, ze sa `completeTodo` spusta po kliknuti na tlacidlo, implementovat zmenu completed z false na true
+
+Pomocka: 
+```
+setTodos(todos.map((t) => {
+      if (t.name === name) { 
+        return {...t, completed: true};
+      } else return t;
+    }))
+```
+
