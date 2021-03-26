@@ -1,0 +1,30 @@
+.todo-form {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #457B9D;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+.todo-form h4 {
+    padding-bottom: 12px;
+}
+
+.todo-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-form .form-input {
+    border: 2px solid #457B9D; 
+    padding: 10px;
+    background: white;
+    margin-bottom: 8px;
+    width: 50%;
+}
+
+.todo-form .form-text {
+    border: 2px solid #457B9D; 
+    background: white;
+    margin-bottom: 8px;
+    padding: 10px;
+}

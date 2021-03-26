@@ -1,0 +1,26 @@
+.todo {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    padding-left: 70px;
+    position: relative;
+}
+.todo .todo-name {
+    font-size: 18px;
+    padding-bottom: 8px;
+}
+.todo .todo-description {
+    font-size: 16px;
+}
+.todo .todo-done {
+    color: #E63946;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    top: 1px;
+    left: 0;
+}
+
+.todo .todo-done::before {
+    content: '✓ ';
+}
