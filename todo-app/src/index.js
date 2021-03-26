@@ -2,80 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
 
-const Header = (props) => {
-  if (props.isVisible === true) {
-    return <h1>{props.title}</h1>
-  } else {
-    return null;
-  }
-}
+import { Header } from './components/Header'
+import { TodoList } from './components/TodoList'
+import { TodoForm } from './components/TodoForm'
 
-// druhy sposob
-const Subtitle = (props) => {
-  const subtitle = props.subtitle;
-  return subtitle ? <h2>{subtitle}</h2> : null;
-}
-
-
-const TodoList = (props) => {
-  const todos = props.todos;
-  if (todos.length === 0) {
-    return <p>Nothing to do</p>
-  } else {
-    return (
-      <div>
-        <p>Here is your TODO list</p>
-        {todos.map((todo) => {
-          return (
-            <div key={todo.id}>
-              <Todo todo={todo} />
-              <button onClick={() => props.onRemove(todo.id)}>x</button>
-              {!todo.completed && <button onClick={() => { return props.onComplete(todo.id)}}>Hotovo!</button>}
-            </div>
-          )
-        })}
-     </div>);
-  }
-}
-
-const Todo = (props) => {
-  return (
-  <div>
-    <h3>{props.todo.name}</h3>
-    <p>{props.todo.description}</p>
-    {props.todo.completed && <p>DONE</p>}
-  </div>)
-}
-
-// {
-//   id,
-//   name,
-//   description,
-//   completed: true/false
-// }
-
-const TodoForm = (props) => {
-
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('')
-
-  const onFormSubmit = (e) => {
-    e.preventDefault(); // prevent full page refresh  
-      props.onAdd({name, description})
-      setName('')
-      setDescription('')
-  }
-
-  return (
-    <form onSubmit={onFormSubmit} >
-        <input type="text" value={name} 
-        onChange={(e) => setName(e.target.value)}/>
-        <textarea value={description} 
-        onChange={(e) => setDescription(e.target.value)}></textarea>
-        <button>Add TODO</button>
-    </form>
-  )
-}
+import './styles.css'
 
 
 const App = () => {
@@ -88,15 +19,12 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-   console.log('hello from useEffect')
    loadTodos(); 
   }, [loadTodos])
   
   
 
-  const addTodo = async (todo) => {   
-    // setTodos([...todos, todo]);
-
+  const addTodo = async (todo) => {  
     const newTodo ={
       name: todo.name,
       description: todo.description,
@@ -107,8 +35,6 @@ const App = () => {
   }
 
   const removeTodo = async (id) => {
-    // const updatedTodos = todos.filter(prvokPola => { return prvokPola.name !== name }) 
-    // setTodos(updatedTodos);
     await axios.delete('http://localhost:3001/todos/' + id)
     loadTodos();
   }
@@ -116,29 +42,24 @@ const App = () => {
   const completeTodo = async (id) => {
     await axios.put('http://localhost:3001/todos/' + id, {completed: true})
     loadTodos();
-    // setTodos(todos.map((t) => {
-    //   if (t.name === name) { 
-    //     return {...t, completed: true};
-    //   } else return t;
-    // }))
   }
   
   const removeAllClick = async () => {
-    // ULOHA 
-    // pomocou kniznice axios zavolajte endpoint http://localhost:3001/todos/delete/all
-    // metoda .delete
-    // nezabudnite await
-    // po zavolani axios-u znovu nacitajte todos
+    await axios.delete('http://localhost:3001/todos/delete/all/')
+    loadTodos()
 
   }
 
   return  (
-    <div>
-      <Header title="TODO LIST" isVisible={true}></Header>
-      <Subtitle subtitle='Co mozes urobit zajtra, nerob dnes!' ></Subtitle>      
-      <TodoList todos={todos} onRemove={removeTodo} onComplete={completeTodo}/>      
-      <TodoForm onAdd={addTodo}></TodoForm>
-      <button onClick={removeAllClick}>Remove All</button>
+    <div className="app">
+      <div className="container">
+        <Header title="TODO LIST" isVisible={true} subtitle='Co mozes urobit zajtra, nerob dnes!'></Header>
+        <div className="content"> 
+          <TodoForm onAdd={addTodo}></TodoForm>
+          <TodoList todos={todos} onRemove={removeTodo} onComplete={completeTodo}/>                
+          <button onClick={removeAllClick}>Remove All</button>
+        </div>
+      </div>
     </div>
   )
 }

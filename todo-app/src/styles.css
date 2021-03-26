@@ -1,0 +1,24 @@
+@import './global.css';
+/*
+https://coolors.co/e63946-f1faee-a8dadc-457b9d-1d3557
+ */
+
+body {
+  background-color: #a8dadc;
+}
+
+.app {
+  display: block;
+  font-size: 18px;
+  margin: 16px 0 0 0;
+  padding: 0;
+}
+
+.container {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.content {
+  padding: 16px 32px;
+}

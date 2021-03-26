@@ -1,0 +1,29 @@
+/* todo-list
+   todo-header
+   todo-row
+   button
+   button-del
+   button-done
+*/
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list .todo-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.todo-list .todo-row {
+  display: flex;
+  position: relative;
+  width: 100%;
+  border-top: 1px solid #457b9d;
+}
+
+.todo-list .button-done {
+  margin-right: 8px;
+}
