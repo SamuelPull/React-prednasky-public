@@ -1485,12 +1485,12 @@ V HTML formularoch, prvky formulara ako `<input>`,`<textare>` udrziavaju svoj vl
 
 V Reacte je stav drzany v stavovych premennych, a meni sa cez `setState` (`setTodos`, `setName`,...). 
 
-Ked kombinujeme HTML a React, chceme, aby nasa React aplikacia bola "single source of truth". Pridanim `value` a `onChange` atributov, a zapojenim spravnych funkcii a hodnot dosiahneme to, ze React bude html <input> a <textarea> ovladat.
+Ked kombinujeme HTML a React, chceme, aby nasa React aplikacia bola "single source of truth". Pridanim `value` a `onChange` atributov, a zapojenim spravnych funkcii a hodnot dosiahneme to, ze React bude html `<input>` a `<textarea>` ovladat.
 
 Tym ze do komponentu pridame useState (`const [name, setName] = useState('');`),
 atribut `value={name}` ma vzdy hodnotu stavu, a zaroven sa stav `name` updatuje po kazdom stlaceni klavesnice tym, ze  zapojime do atributu onChange funkciu na zmenu stavu: `onChange={(e) => setName(e.target.value)}`.
 
-Rovnako postupujeme pri <textarea>, len stavova premenna a funkcia na jej zmenu sa volaju inak.
+Rovnako postupujeme pri `<textarea>`, len stavova premenna a funkcia na jej zmenu sa volaju inak.
 
 ```
 import React, { useState } from 'react';
