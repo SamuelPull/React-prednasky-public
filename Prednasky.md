@@ -1,8 +1,55 @@
 # REACT
 
-## PONDELOK
+# OBSAH
 
-## React intro
+- [REACT](#react)
+- [OBSAH](#obsah)
+  - [PONDELOK](#pondelok)
+  - [Aktivita: Rozbehanie pracovneho prostredia](#aktivita-rozbehanie-pracovneho-prostredia)
+  - [Prednasky, materialy, kod, ulohy, riesenia](#prednasky-materialy-kod-ulohy-riesenia)
+  - [Aktivita 1-1: (<https://create-react-app.dev/docs/getting-started>)](#aktivita-1-1-httpscreate-react-appdevdocsgetting-started)
+  - [JSX](#jsx)
+  - [JSX Expressions](#jsx-expressions)
+  - [Conditional rendering](#conditional-rendering)
+  - [Events, inputs and forms](#events-inputs-and-forms)
+    - [Uloha](#uloha)
+    - [Problem s databindingom](#problem-s-databindingom)
+  - [UTOROK](#utorok)
+    - [Inputs and forms](#inputs-and-forms)
+    - [full page refresh](#full-page-refresh)
+    - [Uloha na renderovanie todo](#uloha-na-renderovanie-todo)
+    - [Riesenie](#riesenie)
+    - [Renderovanie pola](#renderovanie-pola)
+    - [Renderovane todos](#renderovane-todos)
+  - [REACT komponenty](#react-komponenty)
+  - [Vytvaranie komponentov](#vytvaranie-komponentov)
+  - [Props](#props)
+  - [STREDA](#streda)
+    - [Uloha so startovacim kodom](#uloha-so-startovacim-kodom)
+    - [Riesenia](#riesenia)
+    - [Odstranenie komentarov a errorov](#odstranenie-komentarov-a-errorov)
+  - [Pouzivanie zatvoriek v Reacte](#pouzivanie-zatvoriek-v-reacte)
+    - [kedy pouzivame ake zatvorky??](#kedy-pouzivame-ake-zatvorky)
+      - [klasicke okruhle zatvorky () pouzivame v tychto pripadoch:](#klasicke-okruhle-zatvorky--pouzivame-v-tychto-pripadoch)
+      - [zlozene zatvorky { } pouzivame v tychto pripadoch:](#zlozene-zatvorky---pouzivame-v-tychto-pripadoch)
+      - [zatvorky [ ] pouzivame v tychto pripadoch:](#zatvorky---pouzivame-v-tychto-pripadoch)
+      - [tieto zobacikove zatvorky < > pouzivame v tychto pripadoch:](#tieto-zobacikove-zatvorky---pouzivame-v-tychto-pripadoch)
+  - [State](#state)
+    - [interaction-app nanovo](#interaction-app-nanovo)
+  - [useState v TODO aplikacii](#usestate-v-todo-aplikacii)
+    - [Spread operator](#spread-operator)
+  - [STVRTOK](#stvrtok)
+    - [Callbacky](#callbacky)
+    - [Pomaly rozsirujeme TODOS z pola stringov na pole objektov](#pomaly-rozsirujeme-todos-z-pola-stringov-na-pole-objektov)
+    - [Spojenie HTML formulara a Reactu](#spojenie-html-formulara-a-reactu)
+    - [Aktivita - Implementacia callbacku](#aktivita---implementacia-callbacku)
+    - [Kostra kodu](#kostra-kodu)
+    - [Riesenie](#riesenie-1)
+  - [Axios, API](#axios-api)
+    - [Uloha](#uloha-1)
+  - [TODO-LIST](#todo-list)
+
+## PONDELOK
 
 JavaScript kniznica na vytvaranie user interfacov (UIs).
 
@@ -2297,3 +2344,7 @@ ReactDOM.render(
 
 ```
 
+## TODO-LIST
+
+V repozitari je `todo-list` vysledna aplikacia. Ked si ju stiahnete pomocou `git clone` prikazu opisaneho vyssie,
+nainstalujte v jej adresari kniznice pomocou `yarn` alebo `npm i`. 
