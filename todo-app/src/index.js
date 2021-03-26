@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
 
@@ -27,10 +27,10 @@ const TodoList = (props) => {
         <p>Here is your TODO list</p>
         {todos.map((todo) => {
           return (
-            <div key={todo.name}>
+            <div key={todo.id}>
               <Todo todo={todo} />
-              <button onClick={() => props.onRemove(todo.name)}>x</button>
-              {!todo.completed && <button onClick={() => { return props.onComplete(todo.name)}}>Hotovo!</button>}
+              <button onClick={() => props.onRemove(todo.id)}>x</button>
+              {!todo.completed && <button onClick={() => { return props.onComplete(todo.id)}}>Hotovo!</button>}
             </div>
           )
         })}
@@ -82,31 +82,54 @@ const App = () => {
 
   const [todos, setTodos] = useState([])
   
+  const loadTodos = useCallback(async () => {
+    const response = await axios.get('http://localhost:3001/todos');
+    setTodos(response.data)
+  }, [])
+
+  useEffect(() => {
+   console.log('hello from useEffect')
+   loadTodos(); 
+  }, [loadTodos])
+  
+  
+
   const addTodo = async (todo) => {   
     // setTodos([...todos, todo]);
+
     const newTodo ={
       name: todo.name,
       description: todo.description,
       completed: false
     }
     await axios.post('http://localhost:3001/todos', newTodo)
+    loadTodos()
   }
 
-  const removeTodo = (name) => {
-    const updatedTodos = todos.filter(prvokPola => { return prvokPola.name !== name }) 
-    setTodos(updatedTodos);
+  const removeTodo = async (id) => {
+    // const updatedTodos = todos.filter(prvokPola => { return prvokPola.name !== name }) 
+    // setTodos(updatedTodos);
+    await axios.delete('http://localhost:3001/todos/' + id)
+    loadTodos();
   }
 
-  const completeTodo = (name) => {
-    setTodos(todos.map((t) => {
-      if (t.name === name) { 
-        return {...t, completed: true};
-      } else return t;
-    }))
+  const completeTodo = async (id) => {
+    await axios.put('http://localhost:3001/todos/' + id, {completed: true})
+    loadTodos();
+    // setTodos(todos.map((t) => {
+    //   if (t.name === name) { 
+    //     return {...t, completed: true};
+    //   } else return t;
+    // }))
   }
   
-  const removeAllClick = () => {
-    setTodos([])
+  const removeAllClick = async () => {
+    // ULOHA 
+    // pomocou kniznice axios zavolajte endpoint http://localhost:3001/todos/delete/all
+    // metoda .delete
+    // nezabudnite await
+    // po zavolani axios-u znovu nacitajte todos
+
   }
 
   return  (
